@@ -11,9 +11,18 @@ import UIKit
 class TodoListViewController: UITableViewController {
     
     var itemArray = ["Wash the dog","Go grocery shopping","Do my homework"]
+    
+    //Start using Standard User Defaults framwork
+    var defaults = UserDefaults.standard
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set itemArray to user defaults - use optional binding to check for the existence of the array        
+        if let items = defaults.array(forKey: "TodoListArray") as? [String]{
+            itemArray = items
+        }
 
     }
     
@@ -50,6 +59,10 @@ class TodoListViewController: UITableViewController {
             
             if textField.text! != ""{ //Text fields will NEVER be nil, but they can be an empty string, so let's check that.
                 self.itemArray.append(textField.text!)
+                
+                //Save the array to user defaults
+                self.defaults.set(self.itemArray, forKey: "TodoListArray")
+                
                 self.tableView.reloadData()
             }
             
