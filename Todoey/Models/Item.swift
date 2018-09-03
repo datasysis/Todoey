@@ -8,7 +8,9 @@
 
 import Foundation
 
-class Item{
+// Had to add the "Codable" declaration below to eliminate the "Generic parameter 'Value' could not be inferred" error
+// that popped up in TodoListViewController when implementing the encoder.
+class Item: Codable{
     
     var title: String = ""
     var done: Bool = false
